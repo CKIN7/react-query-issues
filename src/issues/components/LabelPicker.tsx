@@ -1,5 +1,20 @@
+import { useQuery } from "@tanstack/react-query"
+import { gitHubApi } from "../../api/gitHubApi"
+import { Label } from "../../interfaces/label"
+
+const getLabels = async():Promise<Label[]> => {
+  const { data } = await gitHubApi.get<Label[]>('/labels')
+  return data
+}
+
 
 export const LabelPicker = () => {
+
+  const labelsQuery = useQuery({
+    queryKey: ['labels'],
+    queryFn: getLabels,
+  })
+
   return (
     <div>
         <span 
