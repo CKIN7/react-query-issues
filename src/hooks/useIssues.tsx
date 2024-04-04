@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { gitHubApi } from "../api/gitHubApi"
+import { gitHubApi } from "../../api/gitHubApi"
 import { Issue } from "../interfaces"
 
 const getIssues = async():Promise<Issue[]> => {
