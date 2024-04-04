@@ -25,8 +25,12 @@ export const IssueList: FC<Props> = ({ issues }) => {
             <div className="card-body text-dark">
                 {
                     issues.map( issue => (
+<<<<<<< HEAD
                         <IssueItem key={issue.id}
                         issue={issue}
+=======
+                        <IssueItem key={issue.id} 
+>>>>>>> ede180ef9b486233107387c64e3e22aa2b3411aa
                         
                         />
                     ))
