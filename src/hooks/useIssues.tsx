@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import { gitHubApi } from "../../api/gitHubApi"
 import { Issue, State } from "../interfaces"
 import { sleep } from "../helpers/sleep"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
     state?: State;
@@ -36,6 +36,10 @@ export const useIssues = ({ state, labels }: Props) => {
 
     const [page, setPage] = useState(1);
 
+    useEffect(() => {
+        setPage(1)
+    }, [state, labels])
+
     const issuesQuery = useQuery({
         queryKey: ['issues', { state, labels, page }],
         queryFn: () => getIssues({ labels, state, page }),
@@ -56,7 +60,7 @@ export const useIssues = ({ state, labels }: Props) => {
         issuesQuery,    // Lo retornamos como objeto porque posiblemente vamos a añadir mas funcionalidades a este hook y voy a querer aparte del issue, extraer otras cosas
 
         // Getters
-        page,
+        page: issuesQuery.isFetching ? 'Loading' : page,
         
         // Methods
         nextPage,
