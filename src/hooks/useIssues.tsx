@@ -10,18 +10,22 @@ interface Props {
 
 
 
-const getIssues = async():Promise<Issue[]> => {
+const getIssues = async(labels: string[], state?: State):Promise<Issue[]> => {
     
     await sleep(2)
 
-    const { data } = await gitHubApi.get<Issue[]>('/issues')
+    const params = new URLSearchParams();
+
+    if(state) params.append('state', state)
+
+    const { data } = await gitHubApi.get<Issue[]>('/issues', {params})
     return data
 }
 
-export const useIssues = () => {
+export const useIssues = ({ state, labels }: Props) => {
     const issuesQuery = useQuery({
-        queryKey: ['issues'],
-        queryFn: getIssues,
+        queryKey: ['issues', { state, labels }],
+        queryFn: () => getIssues(labels, state),
     })
 
     return {
