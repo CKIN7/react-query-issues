@@ -1,8 +1,19 @@
 import { useQuery } from "@tanstack/react-query"
 import { gitHubApi } from "../../api/gitHubApi"
-import { Issue } from "../interfaces"
+import { Issue, State } from "../interfaces"
+import { sleep } from "../helpers/sleep"
+
+interface Props {
+    state?: State;
+    labels: string[];
+}
+
+
 
 const getIssues = async():Promise<Issue[]> => {
+    
+    await sleep(2)
+
     const { data } = await gitHubApi.get<Issue[]>('/issues')
     return data
 }
