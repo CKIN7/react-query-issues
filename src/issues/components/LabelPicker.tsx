@@ -16,7 +16,9 @@ export const LabelPicker = () => {
         >
             {
               labelsQuery.data?.map( label => (
-                <span key={label.id}>{label.name}</span>
+                <span 
+                key={label.id}>
+                {label.name}</span>
               ))
             }
         </span>
